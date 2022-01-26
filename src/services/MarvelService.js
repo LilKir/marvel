@@ -5,7 +5,7 @@ const useMarvelService = () => {
 
   const _apiBase = "https://gateway.marvel.com:443/v1/public/";
   // ЗДЕСЬ БУДЕТ ВАШ КЛЮЧ, ЭТОТ КЛЮЧ МОЖЕТ НЕ РАБОТАТЬ
-  const _apiKey = "apikey=c5d6fc8b83116d92ed468ce36bac6c62";
+  const _apiKey = "apikey=fa1db68ba9fd0493eb6ec4493fb063ef"; //fa1db68ba9fd0493eb6ec4493fb063ef c5d6fc8b83116d92ed468ce36bac6c62
   const _baseOffset = 210;
 
   const getAllCharacters = async (offset = _baseOffset) => {
@@ -27,7 +27,7 @@ const useMarvelService = () => {
     return res.data.results.map(_transformComics);
   };
 
-  const getComics = async (id) => {
+  const getComic = async (id) => {
     const res = await request(`${_apiBase}comics/${id}?${_apiKey}`);
     return _transformComics(res.data.results[0]);
   };
@@ -67,7 +67,7 @@ const useMarvelService = () => {
     getAllCharacters,
     getCharacter,
     getAllComics,
-    getComics,
+    getComic,
   };
 };
 
