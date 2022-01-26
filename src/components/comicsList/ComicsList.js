@@ -8,7 +8,7 @@ import "./comicsList.scss";
 const ComicsList = () => {
   const [comicsList, setComicsList] = useState([]);
   const [newItemLoading, setNewItemLoading] = useState(false);
-  const [offset, setOffset] = useState(210);
+  const [offset, setOffset] = useState(0);
   const [comicsEnded, setComicsEnded] = useState(false);
 
   const { loading, error, getAllComics } = useMarvelService();
@@ -19,19 +19,19 @@ const ComicsList = () => {
 
   const onRequest = (offset, initial) => {
     initial ? setNewItemLoading(false) : setNewItemLoading(true);
-    getAllComics(offset).then(onCharListLoaded);
+    getAllComics(offset).then(onComicsListLoaded);
   };
 
-  const onCharListLoaded = (newCharList) => {
+  const onComicsListLoaded = (newComicsList) => {
     let ended = false;
-    if (newCharList.length < 9) {
+    if (newComicsList.length < 8) {
       ended = true;
     }
 
-    setComicsList((comicsList) => [...comicsList, ...newCharList]);
+    setComicsList((comicsList) => [...comicsList, ...newComicsList]);
 
-    setNewItemLoading((newItemLoading) => false);
-    setOffset((offset) => offset + 8);
+    setNewItemLoading(false);
+    setOffset(offset + 8);
     setComicsEnded(ended);
   };
 
@@ -52,7 +52,7 @@ const ComicsList = () => {
       );
     });
     // А эта конструкция вынесена для центровки спиннера/ошибки
-    return <ul className="char__grid">{items}</ul>;
+    return <ul className="comics__grid">{items}</ul>;
   }
 
   const items = renderItems(comicsList);
